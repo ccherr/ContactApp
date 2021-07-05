@@ -18,7 +18,7 @@ const Add: FC = () => {
     const contactState = useSelector((state: TypeContactReducer) => state.contactReducer)
 
     const [id, setId] = useState('')
-    const [photo, setPhoto] = useState()
+    const [photo, setPhoto] = useState('')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [age, setAge] = useState(0)
@@ -90,13 +90,13 @@ const Add: FC = () => {
                     <View style={styles.input}>
                         <View style={styles.inputImage}>
                             <Text style={styles.imageText}>Profile Picture</Text>
-                            <TouchableOpacity
-                                onPress={chooseFile}>
-                                {loading ?
-                                    <ActivityIndicator size="large" color="#453E44" />
-                                    :
+                            {loading ?
+                                <ActivityIndicator size="large" color="#453E44" />
+                                :
+                                <TouchableOpacity
+                                    onPress={chooseFile}>
                                     <View style={styles.image}>
-                                        {!!(photo == undefined) &&
+                                        {!!(photo == '') &&
                                             (
                                                 <Image
                                                     style={styles.plus}
@@ -104,7 +104,7 @@ const Add: FC = () => {
                                                 />
                                             )
                                         }
-                                        {photo != 'N/A' ?
+                                        {!!(photo != '') && (<Text style={styles.imageData}>{photo != 'N/A' ?
                                             <Image
                                                 style={styles.imageData}
                                                 source={{ uri: photo, }}
@@ -113,10 +113,12 @@ const Add: FC = () => {
                                                 style={styles.imageData}
                                                 source={require('../assets/img/yoona.jpg')}
                                             />
-                                        }
+                                        } </Text>)}
+
+
                                     </View>
-                                }
-                            </TouchableOpacity>
+                                </TouchableOpacity>
+                            }
                         </View>
                         <View style={styles.inputData}>
                             <Text style={styles.text}>First Name</Text>
@@ -208,7 +210,6 @@ const styles = StyleSheet.create({
         width: 40,
         justifyContent: 'center',
         alignSelf: 'center',
-        marginTop: 100,
     },
     image: {
         height: 100,
@@ -220,11 +221,12 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     imageData: {
-        height: 100,
+        height: 200,
         width: 100,
         justifyContent: 'center',
         alignSelf: 'center',
         borderRadius: 10,
+        marginBottom:100,
     },
     inputData: {
         height: 60,
