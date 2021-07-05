@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     data: {
         height: 40,
         width: 319,
-        backgroundColor: 'lightgrey',
+        backgroundColor: 'rgba(69, 62, 68, 0.07)',
         justifyContent: 'center',
         alignSelf: 'center',
         borderRadius: 5,
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         justifyContent: 'center',
         alignSelf: 'center',
-        backgroundColor: 'rgba(69, 62, 68, 0.8)',
+        backgroundColor: 'rgba(69, 62, 68, 1)',
         marginTop: 30,
     },
     buttonText: {

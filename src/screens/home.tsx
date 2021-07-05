@@ -141,6 +141,7 @@ const Home: FC = () => {
                             data={contactState}
                             renderItem={({ item }) =>
                                 <View style={styles.data}>
+                                    <View style={styles.column}></View>
                                     <View style={styles.viewRowSafeArea}>
                                         <TouchableOpacity
                                             onPress={() => navigation.navigate('data', item)}>
@@ -155,7 +156,7 @@ const Home: FC = () => {
                                                         source={require('../assets/img/yoona.jpg')}
                                                     />
                                                 }
-                                                <Text style={styles.dataText}>{`${item.firstName} ${item.lastName} (${item.age})`}</Text>
+                                                <Text style={styles.dataText}>{`${item.firstName} ${item.lastName}`}</Text>
                                             </View>
                                         </TouchableOpacity>
                                         <View style={styles.viewRowSafeArea}>
@@ -163,6 +164,7 @@ const Home: FC = () => {
                                             <DeleteBtn item={item} />
                                         </View>
                                     </View>
+                                    <Text style={styles.dataAge}>{`${item.age} Years Old`}</Text>
                                 </View>
                             }
                             keyExtractor={(item) => item.id}
@@ -217,15 +219,22 @@ const styles = StyleSheet.create({
         marginTop: 20,
         justifyContent: 'space-evenly'
     },
+    column: {
+        justifyContent: 'space-evenly',
+        flexDirection: 'column'
+    },
     dataText: {
         fontSize: 15,
         fontWeight: 'bold',
         marginTop: 15,
         marginLeft: 20
     },
-    column: {
-        flexDirection: 'column',
-        alignSelf:'flex-start'
+    dataAge: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        marginTop: 15,
+        marginLeft: 93,
+        marginTop: -20,
     },
     add: {
         width: 49,
