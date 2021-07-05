@@ -30,14 +30,23 @@ const Edit: FC = () => {
 
     const chooseFile = () => {
         setLoading(true)
+        setLoading(true)
         launchImageLibrary({ mediaType: "photo" }, async function (res) {
-            const asset = res.assets[0]
-            const reference = storage().ref(`/photos/${asset.fileName}`);
+            if (res && res.assets) {
+                const asset = res.assets[0]
+                const reference = storage().ref(`/photos/${asset.fileName}`);
 
-            await reference.putFile(asset.uri);
-            const url = await reference.getDownloadURL();
-            setPhoto(url)
-            setLoading(false)
+                await reference.putFile(asset.uri);
+                const url = await reference.getDownloadURL();
+                setPhoto(url)
+                setLoading(false)
+            } else {
+                if (photo == "") {
+                    ToastAndroid.showWithGravity("Please select a profile picture for this contact!", ToastAndroid.SHORT, ToastAndroid.TOP)
+                }
+                setLoading(false)
+            }
+
         })
     }
 
