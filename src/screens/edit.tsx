@@ -20,7 +20,7 @@ const Edit: FC = () => {
     const [photo, setPhoto] = useState()
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
-    const [age, setAge] = useState()
+    const [age, setAge] = useState(0)
     const [msgErr, setMsgErr] = useState("")
     const [loading, setLoading] = useState(false)
 
