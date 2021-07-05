@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { FC, useState } from "react";
 import { useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image, ToastAndroid, TextInput, ScrollView } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, ToastAndroid, TextInput, ScrollView, ActivityIndicator } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Contact, { ContactReq } from "../models/contact";
 import { UpdateContact } from "../redux/action/contact.action";
@@ -9,6 +9,7 @@ import { TypeContactReducer } from "../redux/reducer/contact.reducer";
 import { updateContact } from "../services/contact.service";
 import { launchImageLibrary } from 'react-native-image-picker'
 import storage from '@react-native-firebase/storage'
+import { contactValidation } from "../validation/contactValidation";
 
 const Edit: FC = () => {
     const navigation = useNavigation()
@@ -21,12 +22,14 @@ const Edit: FC = () => {
     const [lastName, setLastName] = useState('')
     const [age, setAge] = useState()
     const [msgErr, setMsgErr] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const showToast = () => {
         ToastAndroid.showWithGravity("Edit Contact Success!", ToastAndroid.SHORT, ToastAndroid.TOP)
     }
 
     const chooseFile = () => {
+        setLoading(true)
         launchImageLibrary({ mediaType: "photo" }, async function (res) {
             const asset = res.assets[0]
             const reference = storage().ref(`/photos/${asset.fileName}`);
@@ -34,6 +37,7 @@ const Edit: FC = () => {
             await reference.putFile(asset.uri);
             const url = await reference.getDownloadURL();
             setPhoto(url)
+            setLoading(false)
         })
     }
 
@@ -51,7 +55,8 @@ const Edit: FC = () => {
     }, [])
 
     const handlerUpdate = () => {
-        if (firstName != '' && lastName != '' && age != undefined && photo != undefined) {
+        let msgError = contactValidation(firstName, lastName, age, photo)
+        if (contactValidation(firstName, lastName, age, photo) == '') {
             const contact = new ContactReq()
             contact.firstName = firstName
             contact.lastName = lastName
@@ -77,7 +82,7 @@ const Edit: FC = () => {
                     ToastAndroid.showWithGravity(error.data.message, ToastAndroid.SHORT, ToastAndroid.TOP)
                 })
         } else {
-            setMsgErr('Data cannot be empty! please input form')
+            setMsgErr(msgError)
         }
     }
 
@@ -102,18 +107,22 @@ const Edit: FC = () => {
                             <TouchableOpacity
                                 onPress={chooseFile}
                             >
-                                <View style={styles.image}>
-                                    {photo != 'N/A' ?
-                                        <Image
-                                            style={styles.image}
-                                            source={{ uri: photo, }}
-                                        /> :
-                                        <Image
-                                            style={styles.image}
-                                            source={require('../assets/img/yoona.jpg')}
-                                        />
-                                    }
-                                </View>
+                                {loading ?
+                                    <ActivityIndicator size="large" color="#453E44" />
+                                    :
+                                    <View style={styles.image}>
+                                        {photo != 'N/A' ?
+                                            <Image
+                                                style={styles.image}
+                                                source={{ uri: photo, }}
+                                            /> :
+                                            <Image
+                                                style={styles.image}
+                                                source={require('../assets/img/yoona.jpg')}
+                                            />
+                                        }
+                                    </View>
+                                }
                             </TouchableOpacity>
                         </View>
                         <View style={styles.inputData}>

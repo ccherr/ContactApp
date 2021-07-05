@@ -1,12 +1,13 @@
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import React, { FC, useCallback, useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Image, Alert, ToastAndroid } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image, Alert, ToastAndroid, ActivityIndicator } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
 import Contact from "../models/contact";
 import { AddContacts, DeleteContact, ReloadContact } from "../redux/action/contact.action";
 import { TypeContactReducer } from "../redux/reducer/contact.reducer";
 import { deleteContact, getContact } from "../services/contact.service";
+import Spinner from 'react-native-loading-spinner-overlay'
 
 const EditBtn: FC<{ item: Contact }> = (item) => {
 
@@ -84,8 +85,10 @@ const Home: FC = () => {
     const navigation = useNavigation()
     const dispatch = useDispatch()
     const contactState = useSelector((state: TypeContactReducer) => state.contactReducer)
+    const [loading, setLoading] = useState(true)
 
     const reloadContact = () => {
+        setLoading(true)
         dispatch(ReloadContact())
     }
 
@@ -95,6 +98,9 @@ const Home: FC = () => {
                 .then(res => {
                     dispatch(AddContacts(res.data))
                 })
+                .finally(() => {
+                    setLoading(false)
+                })
                 .catch(error => {
                     ToastAndroid.showWithGravity(error, ToastAndroid.SHORT, ToastAndroid.TOP)
                 })
@@ -103,61 +109,67 @@ const Home: FC = () => {
 
     return (
         <View style={styles.all}>
-            <View style={styles.top}>
-                <Text style={styles.title}>Welcome To</Text>
-                <Text style={styles.titleName}>Contact App</Text>
-            </View>
-            <View style={styles.btn}>
-                <View style={styles.btnRow}>
-                    <TouchableOpacity
-                        style={styles.add}
-                        onPress={() => { navigation.navigate('add') }}
-                    >
-                        <Text style={styles.textAdd}>+</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.reload}
-                        onPress={reloadContact}
-                    >
-                        <Image
-                            style={styles.textReload}
-                            source={require('../assets/img/reload.png')}
-                        />
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={styles.container}>
-                <FlatList
-                    data={contactState}
-                    renderItem={({ item }) =>
-                        <View style={styles.data}>
-                            <View style={styles.viewRowSafeArea}>
-                                <TouchableOpacity
-                                    onPress={() => navigation.navigate('data', item)}>
-                                    <View style={styles.datas}>
-                                        {item.photo != 'N/A' ?
-                                            <Image
-                                                style={styles.photo}
-                                                source={{ uri: item.photo }}
-                                            /> :
-                                            <Image
-                                                style={styles.photo}
-                                                source={require('../assets/img/yoona.jpg')}
-                                            />
-                                        }
-                                        <Text style={styles.dataText}>{`${item.firstName} ${item.lastName}`}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                                <View style={styles.viewRowSafeArea}>
-                                    <EditBtn item={item} />
-                                    <DeleteBtn item={item} />
-                                </View>
-                            </View>
+            {loading ?
+                <ActivityIndicator size="large" color="#453E44" />
+                :
+                <View>
+                    <View style={styles.top}>
+                        <Text style={styles.title}>Welcome To</Text>
+                        <Text style={styles.titleName}>Contact App</Text>
+                    </View>
+                    <View style={styles.btn}>
+                        <View style={styles.btnRow}>
+                            <TouchableOpacity
+                                style={styles.add}
+                                onPress={() => { navigation.navigate('add') }}
+                            >
+                                <Text style={styles.textAdd}>+</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.reload}
+                                onPress={reloadContact}
+                            >
+                                <Image
+                                    style={styles.textReload}
+                                    source={require('../assets/img/reload.png')}
+                                />
+                            </TouchableOpacity>
                         </View>
-                    }
-                    keyExtractor={(item) => item.id}
-                />
-            </View>
+                    </View>
+                    <View style={styles.container}>
+                        <FlatList
+                            data={contactState}
+                            renderItem={({ item }) =>
+                                <View style={styles.data}>
+                                    <View style={styles.viewRowSafeArea}>
+                                        <TouchableOpacity
+                                            onPress={() => navigation.navigate('data', item)}>
+                                            <View style={styles.datas}>
+                                                {item.photo != 'N/A' ?
+                                                    <Image
+                                                        style={styles.photo}
+                                                        source={{ uri: item.photo }}
+                                                    /> :
+                                                    <Image
+                                                        style={styles.photo}
+                                                        source={require('../assets/img/yoona.jpg')}
+                                                    />
+                                                }
+                                                <Text style={styles.dataText}>{`${item.firstName} ${item.lastName}`}</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                        <View style={styles.viewRowSafeArea}>
+                                            <EditBtn item={item} />
+                                            <DeleteBtn item={item} />
+                                        </View>
+                                    </View>
+                                </View>
+                            }
+                            keyExtractor={(item) => item.id}
+                        />
+                    </View>
+                </View>
+            }
         </View>
     )
 }

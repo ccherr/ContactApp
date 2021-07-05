@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { FC, useEffect } from "react";
 import { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image, ActivityIndicator } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { GetContactById } from "../redux/action/contact.action";
 import { TypeContactReducer } from "../redux/reducer/contact.reducer";
@@ -16,6 +16,7 @@ const Data: FC = () => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [age, setAge] = useState(0)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         if (route.params) {
@@ -28,6 +29,9 @@ const Data: FC = () => {
                         setFirstName(res.firstName)
                         setLastName(res.lastName)
                         setAge(res.age)
+                    })
+                    .finally(() => {
+                        setLoading(false)
                     })
             }
         }
@@ -44,34 +48,40 @@ const Data: FC = () => {
                 </TouchableOpacity>
             </View>
             <View style={styles.container}>
-                <View style={styles.backgroundImage}>
-                    <View style={styles.image}>
-                        {photo != 'N/A' ?
-                            <Image
-                                style={styles.image}
-                                source={{ uri: photo, }}
-                            /> :
-                            <Image
-                                style={styles.image}
-                                source={require('../assets/img/yoona.jpg')}
-                            />
-                        }
+                {loading ?
+                    <ActivityIndicator size="large" color="#453E44" />
+                    :
+                    <View>
+                        <View style={styles.backgroundImage}>
+                            <View style={styles.image}>
+                                {photo != 'N/A' ?
+                                    <Image
+                                        style={styles.image}
+                                        source={{ uri: photo, }}
+                                    /> :
+                                    <Image
+                                        style={styles.image}
+                                        source={require('../assets/img/yoona.jpg')}
+                                    />
+                                }
+                            </View>
+                        </View>
+                        <View>
+                            <View style={styles.containerData}>
+                                <Text style={styles.text}>First Name</Text>
+                                <Text style={styles.data}>{firstName}</Text>
+                            </View>
+                            <View style={styles.containerData}>
+                                <Text style={styles.text}>Last Name</Text>
+                                <Text style={styles.data}>{lastName}</Text>
+                            </View>
+                            <View style={styles.containerData}>
+                                <Text style={styles.text}>Age</Text>
+                                <Text style={styles.data}>{age}</Text>
+                            </View>
+                        </View>
                     </View>
-                </View>
-                <View>
-                    <View style={styles.containerData}>
-                        <Text style={styles.text}>First Name</Text>
-                        <Text style={styles.data}>{firstName}</Text>
-                    </View>
-                    <View style={styles.containerData}>
-                        <Text style={styles.text}>Last Name</Text>
-                        <Text style={styles.data}>{lastName}</Text>
-                    </View>
-                    <View style={styles.containerData}>
-                        <Text style={styles.text}>Age</Text>
-                        <Text style={styles.data}>{age}</Text>
-                    </View>
-                </View>
+                }
             </View>
         </View>
 
