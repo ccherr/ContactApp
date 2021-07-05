@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     image: {
         height: 100,
         width: 100,
-        backgroundColor: 'rgba(69, 62, 68, 0.3)',
+        backgroundColor: 'lightgrey',
         justifyContent: 'center',
         alignSelf: 'center',
         marginTop: 15,
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     data: {
         height: 40,
         width: 319,
-        backgroundColor: 'rgba(69, 62, 68, 0.3))',
+        backgroundColor: 'lightgrey',
         justifyContent: 'center',
         alignSelf: 'center',
         borderRadius: 5,
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         justifyContent: 'center',
         alignSelf: 'center',
-        backgroundColor: 'rgba(69, 62, 68, 1)',
+        backgroundColor: 'rgba(69, 62, 68, 0.8)',
         marginTop: 10,
     },
     buttonText: {

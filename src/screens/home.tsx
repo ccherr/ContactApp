@@ -155,7 +155,7 @@ const Home: FC = () => {
                                                         source={require('../assets/img/yoona.jpg')}
                                                     />
                                                 }
-                                                <Text style={styles.dataText}>{`${item.firstName} ${item.lastName}`}</Text>
+                                                <Text style={styles.dataText}>{`${item.firstName} ${item.lastName} (${item.age})`}</Text>
                                             </View>
                                         </TouchableOpacity>
                                         <View style={styles.viewRowSafeArea}>
@@ -222,6 +222,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 15,
         marginLeft: 20
+    },
+    column: {
+        flexDirection: 'column',
+        alignSelf:'flex-start'
     },
     add: {
         width: 49,
