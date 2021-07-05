@@ -25,7 +25,7 @@ const Edit: FC = () => {
     const [loading, setLoading] = useState(false)
 
     const showToast = () => {
-        ToastAndroid.showWithGravity("Edit Contact Success!", ToastAndroid.SHORT, ToastAndroid.TOP)
+        ToastAndroid.showWithGravity("Edit Contact Success!", ToastAndroid.SHORT, ToastAndroid.BOTTOM)
     }
 
     const chooseFile = () => {
@@ -42,7 +42,7 @@ const Edit: FC = () => {
                 setLoading(false)
             } else {
                 if (photo == "") {
-                    ToastAndroid.showWithGravity("Please select a profile picture for this contact!", ToastAndroid.SHORT, ToastAndroid.TOP)
+                    ToastAndroid.showWithGravity("Please select a profile picture for this contact!", ToastAndroid.SHORT, ToastAndroid.BOTTOM)
                 }
                 setLoading(false)
             }
@@ -88,7 +88,7 @@ const Edit: FC = () => {
                     dispatch(UpdateContact(contact))
                     navigation.navigate('home')
                 }, (error) => {
-                    ToastAndroid.showWithGravity(error.data.message, ToastAndroid.SHORT, ToastAndroid.TOP)
+                    ToastAndroid.showWithGravity(error.data.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM)
                 })
         } else {
             setMsgErr(msgError)

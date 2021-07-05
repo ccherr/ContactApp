@@ -59,7 +59,7 @@ const DeleteBtn: FC<{ item: Contact }> = (item) => {
                                 dispatch(DeleteContact(delID))
                             })
                             .catch(error => {
-                                ToastAndroid.showWithGravity(error.data.message, ToastAndroid.SHORT, ToastAndroid.TOP)
+                                ToastAndroid.showWithGravity(error.data.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM)
                             })
                     }
                 }
@@ -102,7 +102,7 @@ const Home: FC = () => {
                     setLoading(false)
                 })
                 .catch(error => {
-                    ToastAndroid.showWithGravity(error, ToastAndroid.SHORT, ToastAndroid.TOP)
+                    ToastAndroid.showWithGravity(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM)
                 })
         }
     }, [contactState]))

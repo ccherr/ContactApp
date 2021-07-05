@@ -26,7 +26,7 @@ const Add: FC = () => {
     const [loading, setLoading] = useState(false)
 
     const showToast = () => {
-        ToastAndroid.showWithGravity("Create New Contact Success!", ToastAndroid.SHORT, ToastAndroid.TOP)
+        ToastAndroid.showWithGravity("Create New Contact Success!", ToastAndroid.SHORT, ToastAndroid.BOTTOM)
     }
 
     const chooseFile = () => {
@@ -42,7 +42,7 @@ const Add: FC = () => {
                 setLoading(false)
             } else {
                 if (photo == "") {
-                    ToastAndroid.showWithGravity("Please select a profile picture for this contact!", ToastAndroid.SHORT, ToastAndroid.TOP)
+                    ToastAndroid.showWithGravity("Please select a profile picture for this contact!", ToastAndroid.SHORT, ToastAndroid.BOTTOM)
                 }
                 setLoading(false)
             }
@@ -73,7 +73,7 @@ const Add: FC = () => {
                     dispatch(AddContact(contact))
                     navigation.navigate('home', contact)
                 }, (error) => {
-                    ToastAndroid.showWithGravity(error.data.message, ToastAndroid.SHORT, ToastAndroid.TOP)
+                    ToastAndroid.showWithGravity(error.data.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM)
                 })
         } else {
             setMsgErr(msgError)
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     data: {
         height: 40,
         width: 319,
-        
+        backgroundColor: 'rgba(69, 62, 68, 0.07)',
         justifyContent: 'center',
         alignSelf: 'center',
         borderRadius: 5,
