@@ -150,12 +150,13 @@ const Add: FC = () => {
                             <Text style={styles.text}>Age</Text>
                             <TextInput
                                 style={styles.data}
+                                keyboardType={"number-pad"}
                                 onChangeText={(text) => setAge(Number(text))}
                             />
                         </View>
                     </View>
                     <View style={styles.btn}>
-                        {msgErr != '' && <Text style={styles.msgError}>{msgErr}</Text>}
+                        {msgErr != '' && ToastAndroid.showWithGravity(msgErr, ToastAndroid.SHORT, ToastAndroid.BOTTOM)}
                         {loading &&
                             <TouchableOpacity
                                 style={styles.button}
