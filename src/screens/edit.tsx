@@ -165,7 +165,7 @@ const Edit: FC = () => {
                         {msgErr != '' && ToastAndroid.showWithGravity(msgErr, ToastAndroid.SHORT, ToastAndroid.BOTTOM)}
                         {loading &&
                             <TouchableOpacity
-                                style={styles.button}
+                                style={styles.btnDissabled}
                                 onPress={handlerUpdate}
                                 disabled={true}
                             >
@@ -275,6 +275,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'center',
         backgroundColor: 'rgba(69, 62, 68, 1)',
+        marginTop: 30,
+    },
+    btnDissabled: {
+        height: 60,
+        width: 319,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignSelf: 'center',
+        backgroundColor: 'rgba(69, 62, 68, 0.5)',
         marginTop: 30,
     },
     buttonText: {
