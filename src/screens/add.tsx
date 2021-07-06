@@ -51,6 +51,7 @@ const Add: FC = () => {
     }
 
     const handlerInsert = () => {
+        setLoading(true)
         let msgError = contactValidation(firstName, lastName, age, photo)
         if (contactValidation(firstName, lastName, age, photo) == '') {
             const contact = new ContactReq()
@@ -77,6 +78,7 @@ const Add: FC = () => {
                 })
         } else {
             setMsgErr(msgError)
+            setLoading(false)
         }
     }
 

@@ -30,7 +30,6 @@ const Edit: FC = () => {
 
     const chooseFile = () => {
         setLoading(true)
-        setLoading(true)
         launchImageLibrary({ mediaType: "photo" }, async function (res) {
             if (res && res.assets) {
                 const asset = res.assets[0]
@@ -64,6 +63,7 @@ const Edit: FC = () => {
     }, [])
 
     const handlerUpdate = () => {
+        setLoading(true)
         let msgError = contactValidation(firstName, lastName, age, photo)
         if (contactValidation(firstName, lastName, age, photo) == '') {
             const contact = new ContactReq()
@@ -92,6 +92,7 @@ const Edit: FC = () => {
                 })
         } else {
             setMsgErr(msgError)
+            setLoading(false)
         }
     }
 
