@@ -161,12 +161,23 @@ const Edit: FC = () => {
                     </View>
                     <View style={styles.btn}>
                         {msgErr != '' && <Text style={styles.msgError}>{msgErr}</Text>}
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={handlerUpdate}
-                        >
-                            <Text style={styles.buttonText}>Save</Text>
-                        </TouchableOpacity>
+                        {loading &&
+                            <TouchableOpacity
+                                style={styles.button}
+                                onPress={handlerUpdate}
+                                disabled={true}
+                            >
+                                <Text style={styles.buttonText}>Save</Text>
+                            </TouchableOpacity>
+                        }
+                        {loading == false &&
+                            <TouchableOpacity
+                                style={styles.button}
+                                onPress={handlerUpdate}
+                            >
+                                <Text style={styles.buttonText}>Save</Text>
+                            </TouchableOpacity>
+                        }
                     </View>
                 </View>
             </View>

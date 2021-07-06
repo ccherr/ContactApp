@@ -112,16 +112,18 @@ const Add: FC = () => {
                                                 />
                                             )
                                         }
-                                        {!!(photo != '') && (<Text style={styles.imageData}>{photo != 'N/A' ?
-                                            <Image
-                                                style={styles.imageData}
-                                                source={{ uri: photo, }}
-                                            /> :
-                                            <Image
-                                                style={styles.imageData}
-                                                source={require('../assets/img/yoona.jpg')}
-                                            />
-                                        } </Text>)}
+                                        {!!(photo != '') &&
+                                            (<View style={styles.imageData}><Text>{photo != 'N/A' ?
+                                                <Image
+                                                    style={styles.imageData}
+                                                    source={{ uri: photo, }}
+                                                /> :
+                                                <Image
+                                                    style={styles.imageData}
+                                                    source={require('../assets/img/yoona.jpg')}
+                                                />
+                                            } </Text></View>
+                                            )}
 
 
                                     </View>
@@ -154,12 +156,23 @@ const Add: FC = () => {
                     </View>
                     <View style={styles.btn}>
                         {msgErr != '' && <Text style={styles.msgError}>{msgErr}</Text>}
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={handlerInsert}
-                        >
-                            <Text style={styles.buttonText}>Save</Text>
-                        </TouchableOpacity>
+                        {loading &&
+                            <TouchableOpacity
+                                style={styles.button}
+                                onPress={handlerInsert}
+                                disabled={true}
+                            >
+                                <Text style={styles.buttonText}>Save</Text>
+                            </TouchableOpacity>
+                        }
+                        {loading == false &&
+                            <TouchableOpacity
+                                style={styles.button}
+                                onPress={handlerInsert}
+                            >
+                                <Text style={styles.buttonText}>Save</Text>
+                            </TouchableOpacity>
+                        }
                     </View>
                 </View>
             </View>

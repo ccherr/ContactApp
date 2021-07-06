@@ -141,7 +141,6 @@ const Home: FC = () => {
                             data={contactState}
                             renderItem={({ item }) =>
                                 <View style={styles.data}>
-                                    <View style={styles.column}></View>
                                     <View style={styles.viewRowSafeArea}>
                                         <TouchableOpacity
                                             onPress={() => navigation.navigate('data', item)}>
@@ -156,7 +155,11 @@ const Home: FC = () => {
                                                         source={require('../assets/img/yoona.jpg')}
                                                     />
                                                 }
-                                                <Text style={styles.dataText}>{`${item.firstName} ${item.lastName}`}</Text>
+                                                <View style={styles.column}>
+                                                    <Text style={styles.dataText}>{`${item.firstName} ${item.lastName}`}</Text>
+                                                    <Text style={styles.dataAge}>{`${item.age} Years Old`}</Text>
+                                                </View>
+
                                             </View>
                                         </TouchableOpacity>
                                         <View style={styles.viewRowSafeArea}>
@@ -164,7 +167,6 @@ const Home: FC = () => {
                                             <DeleteBtn item={item} />
                                         </View>
                                     </View>
-                                    <Text style={styles.dataAge}>{`${item.age} Years Old`}</Text>
                                 </View>
                             }
                             keyExtractor={(item) => item.id}
@@ -221,20 +223,18 @@ const styles = StyleSheet.create({
     },
     column: {
         justifyContent: 'space-evenly',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        alignSelf:'auto',
     },
     dataText: {
         fontSize: 15,
         fontWeight: 'bold',
-        marginTop: 15,
-        marginLeft: 20
+        marginLeft: 20,
     },
     dataAge: {
         fontSize: 15,
-        fontWeight: 'bold',
-        marginTop: 15,
-        marginLeft: 93,
-        marginTop: -20,
+        marginLeft: 20,
+        marginBottom: 5
     },
     add: {
         width: 49,
