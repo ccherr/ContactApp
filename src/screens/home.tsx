@@ -143,7 +143,7 @@ const Home: FC = () => {
                                 <View style={styles.data}>
                                     <View style={styles.viewRowSafeArea}>
                                         <TouchableOpacity
-                                            onPress={() => navigation.navigate('data', item)}>
+                                            onPress={() => navigation.navigate('detail', item)}>
                                             <View style={styles.datas}>
                                                 {item.photo != 'N/A' ?
                                                     <Image

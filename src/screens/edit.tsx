@@ -93,6 +93,7 @@ const Edit: FC = () => {
         } else {
             setMsgErr(msgError)
             setLoading(false)
+            ToastAndroid.showWithGravity(msgErr, ToastAndroid.SHORT, ToastAndroid.BOTTOM)
         }
     }
 
@@ -162,7 +163,6 @@ const Edit: FC = () => {
                         </View>
                     </View>
                     <View style={styles.btn}>
-                        {msgErr != '' && ToastAndroid.showWithGravity(msgErr, ToastAndroid.SHORT, ToastAndroid.BOTTOM)}
                         {loading &&
                             <TouchableOpacity
                                 style={styles.btnDissabled}

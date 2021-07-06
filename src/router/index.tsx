@@ -10,7 +10,7 @@ const Router: FC = () => {
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen name="home" component={Screens.Home} options={{ headerShown: false }} />
-                <Stack.Screen name='data' component={Screens.Data} options={{ headerShown: false }} />
+                <Stack.Screen name='detail' component={Screens.Detail} options={{ headerShown: false }} />
                 <Stack.Screen name='add' component={Screens.Add} options={{ headerShown: false }} />
                 <Stack.Screen name='edit' component={Screens.Edit} options={{ headerShown: false }} />
             </Stack.Navigator>
